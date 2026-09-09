@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>gtnh-migrator</AssemblyName>
+    <RootNamespace>GTNHMigrator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Monocraft.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="GTNHMigrator.Tests\**" />
+    <EmbeddedResource Remove="GTNHMigrator.Tests\**" />
+    <None Remove="GTNHMigrator.Tests\**" />
+  </ItemGroup>
+</Project>

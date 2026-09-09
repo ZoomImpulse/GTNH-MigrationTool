@@ -1,0 +1,37 @@
+# .NET build output
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+
+# Visual Studio and VS Code user files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+
+# Test and coverage output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Application runtime files
+gtnh-migrator.log
+gtnh-migrator.log.*
+.gtnh-migrator-state.json
+.gtnh-migrator-state.json.tmp
+
+# Publish and packaging output
+publish/
+*.publishsettings
+*.msix
+*.appx
+*.appxbundle
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
