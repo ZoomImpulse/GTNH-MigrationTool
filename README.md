@@ -39,6 +39,12 @@ dotnet run --project .\GTNHMigrator.csproj --configuration Debug
 
 The test suite uses xUnit and creates isolated temporary source and target directories for filesystem tests.
 
+## GitHub Actions
+
+The `Build GTNH Migrator` workflow runs on pushes and pull requests targeting `main`, and can also be started manually from the Actions tab. It runs on a Windows runner, builds the application and test project, runs the tests, and publishes a self-contained Windows x64 single-file executable.
+
+Successful runs upload an artifact named `gtnh-migrator-win-x64-<commit>`. Download it from the workflow run's **Artifacts** section.
+
 ## Migration Behavior
 
 ### Client mode

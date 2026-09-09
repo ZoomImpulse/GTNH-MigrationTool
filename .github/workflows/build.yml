@@ -1,0 +1,64 @@
+name: Build GTNH Migrator
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build and test
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore .\GTNHMigrator.Tests\GTNHMigrator.Tests.csproj
+
+      - name: Build application
+        run: dotnet build .\GTNHMigrator.csproj --configuration Release --no-restore
+
+      - name: Build test project
+        run: dotnet build .\GTNHMigrator.Tests\GTNHMigrator.Tests.csproj --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test .\GTNHMigrator.Tests\GTNHMigrator.Tests.csproj --configuration Release --no-restore --no-build
+
+      - name: Publish self-contained Windows executable
+        run: >-
+          dotnet publish .\GTNHMigrator.csproj
+          --configuration Release
+          --runtime win-x64
+          --self-contained true
+          --no-restore
+          --output .\artifacts\gtnh-migrator-win-x64
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=None
+          -p:DebugSymbols=false
+
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: gtnh-migrator-win-x64-${{ github.sha }}
+          path: .\artifacts\gtnh-migrator-win-x64\
+          if-no-files-found: error
+          retention-days: 14
