@@ -45,6 +45,14 @@ The `Build GTNH Migrator` workflow runs on pushes and pull requests targeting `m
 
 Successful runs upload an artifact named `gtnh-migrator-win-x64-<commit>`. Download it from the workflow run's **Artifacts** section.
 
+To create a GitHub Release, push a version tag using the `v<major>.<minor>.<patch>` format, for example:
+
+```powershell
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+The tagged workflow run packages the executable as `gtnh-migrator-win-x64.zip`, creates a release for the tag, and generates release notes automatically. Pull requests, normal `main` pushes, and manual workflow runs do not create releases.
 ## Migration Behavior
 
 ### Client mode
