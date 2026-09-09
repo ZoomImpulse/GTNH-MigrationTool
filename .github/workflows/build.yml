@@ -31,7 +31,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Restore dependencies
-        run: dotnet restore .\GTNHMigrator.Tests\GTNHMigrator.Tests.csproj
+        run: dotnet restore .\GTNHMigrator.Tests\GTNHMigrator.Tests.csproj --runtime win-x64
 
       - name: Build application
         run: dotnet build .\GTNHMigrator.csproj --configuration Release --no-restore
